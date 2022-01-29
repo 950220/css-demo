@@ -1,0 +1,132 @@
+@function randomNum($max, $min: 0, $u: 1) {
+	@return ($min + random($max)) * $u;
+}
+
+@function randomColor() {
+    @return rgb(randomNum(255), randomNum(255), randomNum(255));
+}
+
+@function shadowSet($maxWidth, $maxHeight, $count) {
+    $shadow : 0 0 0 0 randomColor();
+    
+    @for $i from 0 through $count {
+        $x: #{random(10000) / 10000 * $maxWidth};
+        $y: #{random(10000) / 10000 * $maxHeight};
+
+        
+        $shadow: $shadow, #{$x} #{$y} 0 #{random(5)}px randomColor();
+    }
+    
+    @return $shadow;
+}
+
+html, body{
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: #000;
+  display: flex;
+}
+
+.g-container{
+  margin: auto;
+  perspective-origin: 50% 50%;
+  position: relative;
+  perspective: 4px;
+  position: relative;
+  animation: hueRotate 21s infinite linear;
+}
+
+.g-group{
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  left: -50vw;
+  top: -50vh;
+  transform-style: preserve-3d;
+  animation: move 12s infinite linear;
+}
+
+.g-group:nth-child(2){
+  animation: move 12s infinite linear;
+  animation-delay: -6s;
+}
+
+.item {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(#05040a, #03010e);
+  background-size: cover;
+  opacity: 1;
+  animation-delay: 0;
+  background: url(https://z3.ax1x.com/2021/08/20/fLwuMd.jpg);
+  animation: fade 12s infinite linear;
+}
+.item::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 1px;
+  height: 1px;
+  border-radius: 50%;
+  box-shadow: shadowSet(100vw, 100vh, 500);
+}
+
+.g-group:nth-child(2) .item {
+  animation-delay: -6s;
+}
+
+.item-right {
+  transform: rotateY(90deg) translateZ(500px);
+}
+
+.item-left {
+  transform: rotateY(-90deg) translateZ(500px);
+}
+
+.item-top {
+  transform: rotateX(90deg) translateZ(500px);
+}
+
+.item-bottom {
+  transform: rotateX(-90deg) translateZ(500px);
+}
+
+.item-middle {
+  transform: rotateX(180deg) translateZ(1000px);
+}
+
+@keyframes move {
+  0%{
+    transform: translateZ(-500px) rotate(0deg);
+  }
+  100%{
+    transform: translateZ(500px) rotate(0deg);
+  }
+}
+
+@keyframes fade {
+  0%{
+    opacity: 0;
+  }
+  25%,
+  60%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+}
+
+@keyframes hueRotate {
+  0% {
+    filter: hue-rotate(0);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
