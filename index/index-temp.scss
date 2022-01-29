@@ -9,7 +9,7 @@
 @function shadowSet($maxWidth, $maxHeight, $count) {
     $shadow : 0 0 0 0 randomColor();
     
-    @for $i from 0 through $count {
+    @for $i from 0 through $count {         
         $x: #{random(10000) / 10000 * $maxWidth};
         $y: #{random(10000) / 10000 * $maxHeight};
 
@@ -30,11 +30,10 @@ html, body{
 
 .g-container{
   margin: auto;
+  perspective: 5px;
   perspective-origin: 50% 50%;
   position: relative;
-  perspective: 4px;
-  position: relative;
-  animation: hueRotate 21s infinite linear;
+  animation: hueRotate 20s infinite linear;
 }
 
 .g-group{
@@ -44,12 +43,12 @@ html, body{
   left: -50vw;
   top: -50vh;
   transform-style: preserve-3d;
-  animation: move 12s infinite linear;
+  animation: move 8s infinite linear;
 }
 
 .g-group:nth-child(2){
-  animation: move 12s infinite linear;
-  animation-delay: -6s;
+  animation: move 8s infinite linear;
+  animation-delay: -4s;
 }
 
 .item {
@@ -59,9 +58,8 @@ html, body{
   background: linear-gradient(#05040a, #03010e);
   background-size: cover;
   opacity: 1;
+  animation: fade 8s infinite linear;
   animation-delay: 0;
-  background: url('https://z3.ax1x.com/2021/08/20/fLwuMd.jpg');
-  animation: fade 12s infinite linear;
 }
 .item::after {
   content: "";
@@ -77,7 +75,7 @@ html, body{
 }
 
 .g-group:nth-child(2) .item {
-  animation-delay: -6s;
+  animation-delay: -4s;
 }
 
 .item-right {
@@ -102,23 +100,23 @@ html, body{
 
 @keyframes move {
   0%{
-    transform: translateZ(-500px) rotate(0deg);
+    transform: translateZ(-200px) rotate(0deg);
   }
   100%{
-    transform: translateZ(500px) rotate(0deg);
+    transform: translateZ(150px) rotate(0deg);
   }
 }
 
 @keyframes fade {
   0%{
-    opacity: 0;
+    opacity: .2;
   }
   25%,
   60%{
     opacity: 1;
   }
   100%{
-    opacity: 0;
+    opacity: .2;
   }
 }
 
